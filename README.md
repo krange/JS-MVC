@@ -45,7 +45,7 @@ Commands execute your user interactions and interact with the models. To create 
 	});
 })();
 
-````
+```
 
 ### Models
 
@@ -69,13 +69,15 @@ Data is provided through the *this.data* property. The rest is up to you!
 })();
 
 
-````
+```
 
 ### Mediators
 
 Mediators are the interface between your views and the application framework. You should only listen for events/signals in mediators from your views which then interact directly with the dom. 
 
 In order for the application to find the mediator when requested, you can either create a static *NAME* variable which you pass in on instantiation or override the *getName* method and return your own name structure that could be a bit more dynamic.
+
+When a message is sent out in the framework, mediators can listen to them directly by adding a function named *respondTo[MessageName]*. For example, if you are sending out a mesage named *applicationLoadComplete*, a medaitor could listen to that command by adding the prefix **respondTo** and the mesasge (first letter capitalized). The full function would then be named **respondToApplicationLoadComplete**. The function will always be passed 1 argument which is a *Message*
 
 #### ApplicationMediator.js
 
@@ -93,7 +95,24 @@ In order for the application to find the mediator when requested, you can either
 	ApplicationMediator.NAME = "ApplicationMediator";
 })();
 
+```
+
+### Messages
+
+Notification is such a long word to write. Message is much easier and faster. Same basic principle, an actor sends out a mesasge that other actors are listening and can respond to. A *Message* takes 3 parameters ( name, body, type ) but only *name* is required.
+
+```js
+
+(function(){
+	StartupCommand = Command.extend({
+		execute: function( message /*Message*/ ){
+			this.sendMessage( "applicationLoadComplete" );
+		}
+	});
+})();
+
 ````
+
 
 ### Tying it all together
 

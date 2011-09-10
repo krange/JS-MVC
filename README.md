@@ -18,13 +18,11 @@ Commands, Models and Mediators are provided access to the facade directly by acc
 #### ApplicationFacade.js
 
 ```js
-
 ApplicationFacade = Facade.extend({
 	startup: function(element){
 		this.facade.registerCommand( 'startup', StartupCommand );
 	}
 });
-
 ```
 
 ### Commands
@@ -34,7 +32,6 @@ Commands execute your user interactions and interact with the models. To create 
 #### SomeCommand.js
 
 ```js
-
 (function(){
 	StartupCommand = Command.extend({
 		execute: function( message /*Message*/ ){
@@ -44,7 +41,6 @@ Commands execute your user interactions and interact with the models. To create 
 		}
 	});
 })();
-
 ```
 
 ### Models
@@ -58,7 +54,6 @@ Data is provided through the *this.data* property. The rest is up to you!
 #### SomeModel.js
 
 ```js
-
 (function(){
 	SomeModel = Model.extend({
 		outputTheDataToTheConsole: function(){
@@ -67,8 +62,6 @@ Data is provided through the *this.data* property. The rest is up to you!
 	});
 	SomeModel.NAME = "SomeModel";
 })();
-
-
 ```
 
 ### Mediators
@@ -82,7 +75,6 @@ When a message is sent out in the framework, mediators can listen to them direct
 #### ApplicationMediator.js
 
 ```js
-
 (function(){
 	ApplicationMediator = Mediator.extend({
 		onRegister: function(){
@@ -94,7 +86,6 @@ When a message is sent out in the framework, mediators can listen to them direct
 	});
 	ApplicationMediator.NAME = "ApplicationMediator";
 })();
-
 ```
 
 ### Messages
@@ -102,7 +93,6 @@ When a message is sent out in the framework, mediators can listen to them direct
 Notification is such a long word to write. Message is much easier and faster. Same basic principle, an actor sends out a mesasge that other actors are listening and can respond to. A *Message* takes 3 parameters ( name, body, type ) but only *name* is required.
 
 ```js
-
 (function(){
 	StartupCommand = Command.extend({
 		execute: function( message /*Message*/ ){
@@ -110,9 +100,7 @@ Notification is such a long word to write. Message is much easier and faster. Sa
 		}
 	});
 })();
-
-````
-
+```
 
 ### Tying it all together
 
@@ -123,8 +111,6 @@ You can either run this all within one single JavaScript file or run your own de
 #### main.js
 
 ```js
-
 var facade = new ApplicationFacade();
 facade.startup( $( '#container' )[0] );
-
-````
+```

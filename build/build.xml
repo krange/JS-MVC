@@ -1,0 +1,44 @@
+<project name="jsmvc" default="build-debug" basedir="." >
+	
+	<property file="users/local.properties" />
+	<property file="build.properties" />
+	
+	<target name="build-release" depends="set-deploy-to-release, initialize-deploy, js-build">
+	</target>
+	
+	<target name="build-debug" depends="set-deploy-to-debug, initialize-deploy, js-build">
+	</target>
+	
+	<target name="set-deploy-to-release">
+		<script language="javascript">
+		<![CDATA[
+			jsmvc.setProperty( "dir.deploy", jsmvc.getProperty( "dir.release" ) );
+		]]>
+		</script>
+	</target>
+	
+	<target name="set-deploy-to-debug">
+		<script language="javascript">
+		<![CDATA[
+			jsmvc.setProperty( "dir.deploy", jsmvc.getProperty( "dir.debug" ) );
+		]]>
+		</script>
+	</target>
+	
+	<target name="initialize-deploy">
+		<delete dir="${dir.deploy}" />
+		
+		<mkdir dir="${dir.deploy}" />
+		<mkdir dir="${dir.deploy}/js" />
+		
+		<copy file="${dir.src}/index-build.html" tofile="${dir.deploy}/index.html" />
+	</target>
+	
+	<target name="js-build">
+		
+		<exec executable="${sprocketize}">
+			<arg value="-C /volumes/work/work/common/js-mvc/src/js/mvc/ /volumes/work/work/common/js-mvc/src/js/mvc/Facade.js > /volumes/work/work/common/js-mvc/debug/js/jv-mvc.js" />
+		</exec>
+	</target>
+	
+</project>

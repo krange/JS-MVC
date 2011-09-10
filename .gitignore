@@ -1,0 +1,6 @@
+.DS_Store
+.project
+build/users/local.properties
+debug/
+release/
+server/krange.conf

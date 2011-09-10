@@ -1,21 +1,22 @@
 //= require "../lib/Class"
-//= require  observers/CommandObserver"
+//= require "observers/CommandObserver"
 //= require "observers/ModelObserver"
-//= require "observers/ViewObserver"
+//= require "observers/MediatorObserver"
 //= require "messages/Message"
+//= require "actors/Command"
 
 (function(){
 	Facade = Class.extend({
 		init: function(){
 			this.commandObserver = new CommandObserver();
 			this.modelObserver = new ModelObserver();
-			this.viewObserver = new ViewObserver();
+			this.mediatorObserver = new MediatorObserver();
 			
 			this.commandObserver._register( this );
 			this.modelObserver._register( this );
-			this.viewObserver._register( this );
+			this.mediatorObserver._register( this );
 		},
-		startup: function(el /*DOM element*/){
+		startup: function( element /*DOM element*/ ){
 		},
 		registerCommand: function( messageName /*String*/, className /*Command*/ ){
 			return this.commandObserver.registerCommand( messageName, className );
@@ -32,14 +33,14 @@
 		removeModel: function( name /*String*/ ){
 			return this.modelObserver.removeModel( name );
 		},
-		registerView: function( view /*View*/){
-			return this.viewObserver.registerView( view );
+		registerMediator: function( mediator /*Mediator*/){
+			return this.mediatorObserver.registerMediator( mediator );
 		},
-		retrieveView: function( name /*String*/ ){
-			return this.viewObserver.retrieveView( name );
+		retrieveMediator: function( name /*String*/ ){
+			return this.mediatorObserver.retrieveMediator( name );
 		},
-		removeView: function( name /*String*/ ){
-			return this.viewObserver.removeView( name );
+		removeMediator: function( name /*String*/ ){
+			return this.mediatorObserver.removeMediator( name );
 		},
 		sendMessage: function( name /*String*/, body /*Object*/, type /*String*/ ){
 			var message = new Message( name, body, type );
@@ -52,23 +53,26 @@
 					var commandArrLen = commandArr.length;
 					for( var i = 0; i < commandArrLen; i++ ){
 						var command = new commandArr[i];
-						command._register( this );
-						command.execute( message );
+						if( command instanceof Command ){
+							command._register( this );
+							command.execute( message );
+						}
 					}
 					break;
 				}
 			}
 			
-			// Loop through views
-			var views = this.viewObserver.getViews();
-			for( var view in views ){
-				var interests = views[view].getMessageInterests();
+			// Loop through mediators
+			var mediators = this.mediatorObserver.getMediators();
+			for( var mediator in mediators ){
+				var interests = mediators[mediator].getMessageInterests();
 				var interestsLen = interests.length;
 				for( var i = 0; i < interestsLen; i++ ){
 					var interest = interests[i];
 					if( name == interest )
 					{
-						views[view][ interests[i] ]( message );
+						interest = interests[i].charAt(0).toUpperCase() + interest.slice(1);
+						mediators[mediator][ 'respondTo' + interest ]( message );
 					}
 				}
 			}

@@ -1,19 +1,19 @@
 //= require "Actor"
 
 (function(){
-	View = Actor.extend({
-		init: function( name /*String*/, viewComponent /*DOM element*/ ){
+	Mediator = Actor.extend({
+		init: function( name /*String*/, mediatorComponent /*DOM element*/ ){
 			this._super( name );
 			
-			this.viewComponent = viewComponent;
+			this.mediatorComponent = mediatorComponent;
 			
 			// Determine message interests
 			this.messageInterests = [];
 			for( var func in this ){
 				if( func.indexOf( 'respondTo' ) == 0 ){
 					var interest = func.substring(9);
-					interest = interest.charAt(0).toLowerCase() + interest.slice(1)
-					this.messageInterests[this.messageInterests.length] = func;
+					interest = interest.charAt(0).toLowerCase() + interest.slice(1);
+					this.messageInterests[this.messageInterests.length] = interest;
 				}
 			}
 		},

@@ -1,7 +1,7 @@
 //= require "../model/SomeModel"
 
 (function(){
-	ApplicationView = View.extend({
+	ApplicationMediator = Mediator.extend({
 		respondToApplicationLoadComplete: function( message /*Message*/ ){
 			
 			var someModel = this.facade.retrieveModel( SomeModel.NAME );
@@ -10,5 +10,5 @@
 			}
 		}
 	});
-	ApplicationView.NAME = "ApplicationView";
+	ApplicationMediator.NAME = "ApplicationMediator";
 })();

@@ -1,7 +1,0 @@
-JS-MVC
-=======
-
-# Introduction
-
-JS-MVC started as an experiment in a lightweight JavaScript MVC architecture. Similiar to the way PureMVC is architected with some additional adaptions of the AS3 PureMVC plugin Fabrication all while using John Resig's Class implementation.
-

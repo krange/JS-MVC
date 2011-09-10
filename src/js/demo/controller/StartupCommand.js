@@ -1,5 +1,5 @@
 //= require "../model/SomeModel"
-//= require "../view/ApplicationView"
+//= require "../view/ApplicationMediator"
 
 (function(){
 	StartupCommand = Command.extend({
@@ -12,9 +12,9 @@
 			var someModel = new SomeModel( SomeModel.NAME, { id : 23 } );
 			this.facade.registerModel( someModel );
 			
-			// Register views
-			var applicationView = new ApplicationView( ApplicationView.NAME, message.getBody() );
-			this.facade.registerView( applicationView );
+			// Register mediators
+			var applicationMediator = new ApplicationMediator( ApplicationMediator.NAME, message.getBody() );
+			this.facade.registerMediator( applicationMediator );
 			
 			// Send mesage that application has loaded
 			this.facade.sendMessage( "applicationLoadComplete" );

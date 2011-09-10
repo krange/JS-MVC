@@ -5,6 +5,8 @@ JS-MVC
 
 JS-MVC is an beta experiment in a lightweight JavaScript MVC architecture that I figured I would upload. I really enjoy using PureMVC (ActionScript and Objective-C) but did not enjoy the JavaScript port and its dependencies. So, I decided to spend some time one night and right something a bit simplier. This interpretation is similiar architectually but with some additional adaptions and uses John Resig's JavaScript Class implementation for inheritence.
 
+Additional support should be coming soon, like unit-tests and JSDocs.
+
 # Usage
 
 ### Facade

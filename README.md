@@ -22,7 +22,7 @@ Commands, Models and Mediators are provided access to the facade directly by acc
 ```js
 ApplicationFacade = Facade.extend({
 	startup: function(element){
-		this.facade.registerCommand( 'startup', StartupCommand );
+		this.registerCommand( 'startup', StartupCommand );
 	}
 });
 ```
@@ -39,7 +39,7 @@ Commands execute your user interactions and interact with the models. To create 
 		execute: function( message /*Message*/ ){
 			// Register main view
 			var applicationMediator = new ApplicationMediator( ApplicationMediator.NAME, message.getBody() );
-			this.facade.registerView( applicationMediator );
+			this.registerView( applicationMediator );
 		}
 	});
 })();
@@ -83,7 +83,7 @@ When a message is sent out in the framework, mediators can listen to them direct
 			// Do something
 		},
 		respondToSomeMessage: function( message /*Message*/ ){
-			var someModel = this.facade.retrieveModel( SomeModel.NAME );
+			var someModel = this.retrieveModel( SomeModel.NAME );
 		}
 	});
 	ApplicationMediator.NAME = "ApplicationMediator";
